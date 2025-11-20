@@ -5,16 +5,26 @@ import { ChatKitPanel, type FactAction } from "@/components/ChatKitPanel";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { ProductCard } from "@/components/product-card";
 
+// Tipo para el producto
+type ProductData = {
+  name: string;
+  price: string;
+  sku: string;
+  stockLabel: string;
+  stockColor: 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'discovery';
+  url: string;
+};
+
 export default function App() {
   const { scheme, setScheme } = useColorScheme();
 
   // Estado para el producto dinámico
-  const [product, setProduct] = useState({
+  const [product, setProduct] = useState<ProductData>({
     name: "Producto en Cedent",
     price: "AR$ 12.990",
     sku: "CED-0001",
     stockLabel: "En stock",
-    stockColor: "success" as const,
+    stockColor: "success",
     url: "https://www.cedent.com.ar",
   });
 
@@ -26,7 +36,7 @@ export default function App() {
       price: "Consultar en web",
       sku: "CED-1234",
       stockLabel: "Agotado",
-      stockColor: "danger" as const,
+      stockColor: "danger",
       url: "https://www.cedent.com.ar/producto/nuevo",
     });
   };
