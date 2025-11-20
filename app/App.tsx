@@ -18,17 +18,10 @@ type ProductData = {
 export default function App() {
   const { scheme, setScheme } = useColorScheme();
 
-  // Estado para el producto dinámico
-  const [product, setProduct] = useState<ProductData>({
-    name: "Producto en Cedent",
-    price: "AR$ 12.990",
-    sku: "CED-0001",
-    stockLabel: "En stock",
-    stockColor: "success",
-    url: "https://www.cedent.com.ar",
-  });
+  // Estado para el producto dinámico - null por defecto, no se muestra hasta que el agente lo invoque
+  const [product, setProduct] = useState<ProductData | null>(null);
 
-  // Simulación: función para actualizar el producto dinámicamente
+  // Simulación: función para mostrar/actualizar el producto dinámicamente
   // En la práctica, aquí pondrías los datos que llegan del agente
   const updateProduct = () => {
     setProduct({
@@ -62,14 +55,14 @@ export default function App() {
           onResponseEnd={handleResponseEnd}
           onThemeRequest={setScheme}
         />
-        {/* Widget dinámico: muestra el producto actual */}
-        <ProductCard {...product} />
-        {/* Botón para simular actualización dinámica */}
+        {/* Widget dinámico: muestra el producto solo cuando hay datos */}
+        {product && <ProductCard {...product} />}
+        {/* Botón para simular mostrar producto */}
         <button
           className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
           onClick={updateProduct}
         >
-          Simular producto IA
+          Mostrar producto (demo)
         </button>
       </div>
     </main>
