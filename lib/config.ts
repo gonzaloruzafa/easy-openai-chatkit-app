@@ -20,16 +20,15 @@ export const GREETING = "¡Hola! ¿En qué puedo ayudarte?";
 export const getThemeConfig = (theme: ColorScheme): ThemeOption => ({
   color: {
     grayscale: {
-      hue: 220,
+      hue: 120, // verde WhatsApp
       tint: 6,
       shade: theme === "dark" ? -1 : -4,
     },
     accent: {
-      primary: theme === "dark" ? "#f1f5f9" : "#0f172a",
+      primary: theme === "dark" ? "#25D366" : "#075E54", // verde WhatsApp
       level: 1,
     },
   },
-  radius: "round",
-  // Add other theme options here
-  // chatkit.studio/playground to explore config options
+  radius: "full", // burbujas redondeadas
+  // Puedes agregar más opciones aquí
 });

@@ -28,7 +28,7 @@
 }
 
 body {
-  background: var(--background);
+  background: #ece5dd; /* fondo WhatsApp */
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
