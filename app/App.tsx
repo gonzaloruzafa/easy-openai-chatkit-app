@@ -38,6 +38,12 @@ export default function App() {
     if (process.env.NODE_ENV !== "production") {
       console.info("[ChatKitPanel] widget action", action);
     }
+    
+    // Manejo del widget de producto
+    if (action.type === "show_product") {
+      const productData = action.productData as ProductData;
+      setProduct(productData);
+    }
   }, []);
 
   const handleResponseEnd = useCallback(() => {
