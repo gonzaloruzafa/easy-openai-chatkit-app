@@ -21,18 +21,7 @@ export default function App() {
   // Estado para el producto dinámico - null por defecto, no se muestra hasta que el agente lo invoque
   const [product, setProduct] = useState<ProductData | null>(null);
 
-  // Simulación: función para mostrar/actualizar el producto dinámicamente
-  // En la práctica, aquí pondrías los datos que llegan del agente
-  const updateProduct = () => {
-    setProduct({
-      name: "Nuevo producto IA",
-      price: "Consultar en web",
-      sku: "CED-1234",
-      stockLabel: "Agotado",
-      stockColor: "danger",
-      url: "https://www.cedent.com.ar/producto/nuevo",
-    });
-  };
+  // Función eliminada - el producto ahora se muestra dinámicamente vía onWidgetAction
 
   const handleWidgetAction = useCallback(async (action: FactAction) => {
     if (process.env.NODE_ENV !== "production") {

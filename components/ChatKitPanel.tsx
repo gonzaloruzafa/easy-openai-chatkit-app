@@ -336,7 +336,7 @@ export function ChatKitPanel({
     onResponseEnd: () => {
       onResponseEnd();
     },
-    onMessage: (message: any) => {
+    onMessage: (message: { role: string; content: string; [key: string]: unknown }) => {
       // Debug: Log mensajes para detectar productos
       console.log("[ChatKitPanel] onMessage received:", message);
       
