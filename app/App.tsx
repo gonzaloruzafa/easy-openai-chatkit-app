@@ -20,8 +20,7 @@ export default function App() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-end bg-[#ece5dd]">
-      <img src="/cedent-logo.png" alt="Cedent" style={{ width: 120, margin: "32px auto 16px" }} />
+    <main className="flex min-h-screen flex-col items-center justify-end bg-slate-100 dark:bg-slate-950">
       <div className="mx-auto w-full max-w-5xl">
         <ChatKitPanel
           theme={scheme}
