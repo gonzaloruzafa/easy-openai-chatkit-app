@@ -29,6 +29,6 @@ export const getThemeConfig = (theme: ColorScheme): ThemeOption => ({
       level: 1,
     },
   },
-  radius: "full", // burbujas redondeadas
+  radius: "pill", // burbujas redondeadas tipo WhatsApp
   // Puedes agregar más opciones aquí
 });
