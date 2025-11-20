@@ -5,13 +5,13 @@ import { ChatKitPanel, type FactAction } from "@/components/ChatKitPanel";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { ProductCard } from "@/components/product-card";
 
-// Tipo para el producto
+// Tipo para el producto - coincide con el tool create_product_summary
 type ProductData = {
   name: string;
   price: string;
   sku: string;
   stockLabel: string;
-  stockColor: 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'discovery';
+  stockColor: 'success' | 'warning' | 'danger' | 'secondary';
   url: string;
 };
 

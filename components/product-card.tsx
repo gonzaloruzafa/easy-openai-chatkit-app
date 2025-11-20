@@ -1,24 +1,22 @@
 import React from 'react';
 
-// Definimos las propiedades tal cual vienen de tu widget
+// Definimos las propiedades tal cual vienen del tool create_product_summary
 interface ProductCardProps {
   name: string;
   price: string;
   sku: string;
   stockLabel: string;
-  stockColor: 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'discovery';
+  stockColor: 'success' | 'warning' | 'danger' | 'secondary';
   url: string;
 }
 
 export const ProductCard = ({ name, price, sku, stockLabel, stockColor, url }: ProductCardProps) => {
-  // Mapeo de tus colores del widget a estilos de Tailwind reales
+  // Mapeo de colores del tool create_product_summary a estilos de Tailwind
   const colorStyles = {
     secondary: 'bg-gray-100 text-gray-800',
     success: 'bg-green-100 text-green-800',
     danger: 'bg-red-100 text-red-800',
     warning: 'bg-yellow-100 text-yellow-800',
-    info: 'bg-blue-100 text-blue-800',
-    discovery: 'bg-purple-100 text-purple-800',
   };
 
   // Fallback por si la IA alucina un color que no existe
