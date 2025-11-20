@@ -1,37 +1,15 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { ChatKitPanel, type FactAction } from "@/components/ChatKitPanel";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { ProductCard } from "@/components/product-card";
-
-// Tipo para el producto - coincide con el tool create_product_summary
-type ProductData = {
-  name: string;
-  price: string;
-  sku: string;
-  stockLabel: string;
-  stockColor: 'success' | 'warning' | 'danger' | 'secondary';
-  url: string;
-};
 
 export default function App() {
   const { scheme, setScheme } = useColorScheme();
 
-  // Estado para el producto dinámico - null por defecto, no se muestra hasta que el agente lo invoque
-  const [product, setProduct] = useState<ProductData | null>(null);
-
-  // Función eliminada - el producto ahora se muestra dinámicamente vía onWidgetAction
-
   const handleWidgetAction = useCallback(async (action: FactAction) => {
     if (process.env.NODE_ENV !== "production") {
       console.info("[ChatKitPanel] widget action", action);
-    }
-    
-    // Manejo del widget de producto
-    if (action.type === "show_product") {
-      const productData = action.productData as ProductData;
-      setProduct(productData);
     }
   }, []);
 
@@ -50,8 +28,6 @@ export default function App() {
           onResponseEnd={handleResponseEnd}
           onThemeRequest={setScheme}
         />
-        {/* Widget dinámico: muestra el producto solo cuando hay datos */}
-        {product && <ProductCard {...product} />}
       </div>
     </main>
   );

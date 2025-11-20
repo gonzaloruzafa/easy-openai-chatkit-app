@@ -18,9 +18,6 @@ export type FactAction = {
   type: "save";
   factId: string;
   factText: string;
-} | {
-  type: "show_product";
-  productData: Record<string, unknown>;
 };
 
 type ChatKitPanelProps = {
@@ -318,15 +315,6 @@ export function ChatKitPanel({
           type: "save",
           factId: id,
           factText: text.replace(/\s+/g, " ").trim(),
-        });
-        return { success: true };
-      }
-
-      if (invocation.name === "show_product") {
-        // Manejo del widget de producto Cedent
-        void onWidgetAction({
-          type: "show_product",
-          productData: invocation.params,
         });
         return { success: true };
       }
