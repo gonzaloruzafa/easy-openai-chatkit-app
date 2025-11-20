@@ -14,7 +14,7 @@ export default function App() {
     price: "AR$ 12.990",
     sku: "CED-0001",
     stockLabel: "En stock",
-    stockColor: "success",
+    stockColor: "success" as const,
     url: "https://www.cedent.com.ar",
   });
 
@@ -26,7 +26,7 @@ export default function App() {
       price: "Consultar en web",
       sku: "CED-1234",
       stockLabel: "Agotado",
-      stockColor: "danger",
+      stockColor: "danger" as const,
       url: "https://www.cedent.com.ar/producto/nuevo",
     });
   };
