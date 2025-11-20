@@ -60,6 +60,35 @@ npm run build
 
 Before deploying your app, you need to verify the domain by adding it to the [Domain allowlist](https://platform.openai.com/settings/organization/security/domain-allowlist) on your dashboard.
 
+## Deploy en Vercel
+
+1. **Sube el proyecto a GitHub**
+   - Ya está conectado: `git@github.com:gonzaloruzafa/easy-openai-chatkit-app.git`
+
+2. **Crea el proyecto en Vercel**
+   - Ve a [Vercel](https://vercel.com/import/git) y selecciona el repo.
+
+3. **Agrega las variables de entorno en Vercel**
+   - `OPENAI_API_KEY` (tu clave de OpenAI)
+   - `NEXT_PUBLIC_CHATKIT_WORKFLOW_ID` (ID de workflow de Agent Builder)
+
+4. **Verifica el dominio en OpenAI**
+   - Agrega el dominio de Vercel en la [Domain allowlist](https://platform.openai.com/settings/organization/security/domain-allowlist)
+
+5. **Haz deploy**
+   - Vercel detecta Next.js automáticamente.
+   - El endpoint `/api/create-session` funcionará gracias a `vercel.json`.
+
+6. **Listo!**
+   - Accede a tu app y prueba el chat.
+
+---
+
+Si tienes problemas, revisa:
+- Variables de entorno en Vercel
+- Dominio permitido en OpenAI
+- Logs de Vercel para errores
+
 ## Customization Tips
 
 - Adjust starter prompts, greeting text, [chatkit theme](https://chatkit.studio/playground), and placeholder copy in [`lib/config.ts`](lib/config.ts).
