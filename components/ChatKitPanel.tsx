@@ -289,6 +289,12 @@ export function ChatKitPanel({
       name: string;
       params: Record<string, unknown>;
     }) => {
+      // Debug: Log todos los tools que llegan
+      console.log("[ChatKitPanel] onClientTool received:", {
+        name: invocation.name,
+        params: invocation.params
+      });
+
       if (invocation.name === "switch_theme") {
         const requested = invocation.params.theme;
         if (requested === "light" || requested === "dark") {
@@ -329,6 +335,30 @@ export function ChatKitPanel({
     },
     onResponseEnd: () => {
       onResponseEnd();
+    },
+    onMessage: (message: any) => {
+      // Debug: Log mensajes para detectar productos
+      console.log("[ChatKitPanel] onMessage received:", message);
+      
+      // Detectar si el mensaje contiene información de producto
+      if (message.role === 'assistant' && message.content) {
+        // Buscar patrones que indiquen un producto (puedes ajustar estos patrones)
+        const productPatterns = [
+          /SKU[:\s]+([A-Z0-9-]+)/i,
+          /\$?\s*(\d{1,3}(?:[\.,]\d{3})*(?:[\.,]\d{2})?)/,
+          /(en stock|agotado|disponible)/i
+        ];
+        
+        const hasProductInfo = productPatterns.some(pattern => 
+          pattern.test(message.content)
+        );
+        
+        if (hasProductInfo) {
+          console.log("[ChatKitPanel] Product detected in message, should show widget");
+          // Aquí podrías extraer los datos del mensaje y mostrar el widget
+          // Por ahora, solo logging para debug
+        }
+      }
     },
     onResponseStart: () => {
       setErrorState({ integration: null, retryable: false });
