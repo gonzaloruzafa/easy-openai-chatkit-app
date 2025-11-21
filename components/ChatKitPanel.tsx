@@ -267,19 +267,8 @@ export function ChatKitPanel({
     [isWorkflowConfigured, setErrorState]
   );
 
-  // Intentar recuperar thread_id guardado para continuar conversación
-  const [savedThreadId] = useState<string | null>(() => {
-    if (!isBrowser) return null;
-    try {
-      return localStorage.getItem(STORAGE_KEY_THREAD);
-    } catch {
-      return null;
-    }
-  });
-
   const chatkit = useChatKit({
     api: { getClientSecret },
-    ...(savedThreadId ? { threadId: savedThreadId } : {}),
     theme: {
       colorScheme: theme,
       ...getThemeConfig(theme),
