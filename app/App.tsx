@@ -20,15 +20,13 @@ export default function App() {
   }, []);
 
   return (
-    <main className="flex h-screen w-full bg-slate-100 dark:bg-slate-950">
-      <div className="w-full h-full">
-        <ChatKitPanel
-          theme={scheme}
-          onWidgetAction={handleWidgetAction}
-          onResponseEnd={handleResponseEnd}
-          onThemeRequest={setScheme}
-        />
-      </div>
+    <main>
+      <ChatKitPanel
+        theme={scheme}
+        onWidgetAction={handleWidgetAction}
+        onResponseEnd={handleResponseEnd}
+        onThemeRequest={setScheme}
+      />
     </main>
   );
 }

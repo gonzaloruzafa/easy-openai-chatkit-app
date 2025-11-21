@@ -1,48 +1,149 @@
-/* Estilos para chat embebido - layout optimizado */
+/* Layout completo refactorizado para embedding */
 
-/* Hacer que el chat ocupe toda la altura disponible */
+/* Reset completo */
 html, body {
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 #__next {
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Optimizar el layout del ChatKit para embedding */
-openai-chatkit {
-  height: 100% !important;
+/* Contenedor principal del chat */
+main {
+  height: 100vh !important;
+  width: 100vw !important;
   display: flex !important;
   flex-direction: column !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* Asegurar que el composer (input) esté siempre abajo */
-openai-chatkit .composer {
-  margin-top: auto !important;
-  position: sticky !important;
-  bottom: 0 !important;
+/* ChatKit container refactorizado */
+openai-chatkit {
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
   background: white !important;
-  border-top: 1px solid #e5e7eb !important;
-  padding: 12px !important;
+  border: none !important;
+  border-radius: 0 !important;
 }
 
-/* Mejorar el área de mensajes */
-openai-chatkit .messages {
+/* Área de mensajes - debe ocupar el espacio disponible */
+openai-chatkit [data-testid="thread"],
+openai-chatkit .thread,
+openai-chatkit .messages-container {
   flex: 1 !important;
   overflow-y: auto !important;
-  padding: 16px !important;
+  overflow-x: hidden !important;
+  padding: 20px 16px 16px 16px !important;
+  background: #f8fafc !important;
 }
 
-/* Estilos responsivos para mobile */
+/* Input composer - fijo en la parte inferior */
+openai-chatkit [data-testid="composer"],
+openai-chatkit .composer,
+openai-chatkit .input-container {
+  position: sticky !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: white !important;
+  border-top: 1px solid #e2e8f0 !important;
+  padding: 16px !important;
+  margin: 0 !important;
+  z-index: 100 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Textarea del input */
+openai-chatkit textarea,
+openai-chatkit input[type="text"] {
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 12px 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 24px !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  resize: none !important;
+  background: #f8fafc !important;
+}
+
+/* Botón de envío */
+openai-chatkit button[type="submit"],
+openai-chatkit .send-button {
+  background: #3b82f6 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin-left: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Mensajes individuales */
+openai-chatkit .message {
+  margin-bottom: 16px !important;
+  padding: 12px 16px !important;
+  border-radius: 18px !important;
+  max-width: 85% !important;
+  word-wrap: break-word !important;
+}
+
+/* Mensajes del usuario */
+openai-chatkit .message.user {
+  background: #3b82f6 !important;
+  color: white !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+/* Mensajes del asistente */
+openai-chatkit .message.assistant {
+  background: white !important;
+  color: #1e293b !important;
+  border: 1px solid #e2e8f0 !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+/* Scroll suave */
+openai-chatkit [data-testid="thread"]::-webkit-scrollbar,
+openai-chatkit .thread::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+openai-chatkit [data-testid="thread"]::-webkit-scrollbar-thumb,
+openai-chatkit .thread::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 3px !important;
+}
+
+/* Responsive para mobile */
 @media (max-width: 480px) {
+  openai-chatkit [data-testid="composer"],
   openai-chatkit .composer {
-    padding: 8px !important;
+    padding: 12px !important;
   }
   
-  openai-chatkit .messages {
-    padding: 12px !important;
+  openai-chatkit [data-testid="thread"],
+  openai-chatkit .thread {
+    padding: 16px 12px !important;
   }
 }
