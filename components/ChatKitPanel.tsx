@@ -343,14 +343,14 @@ export function ChatKitPanel({
     onResponseStart: () => {
       setErrorState({ integration: null, retryable: false });
     },
-    onThreadChange: (threadId?: string) => {
+    onThreadChange: (event: { threadId: string | null }) => {
       processedFacts.current.clear();
       // Guardar el nuevo threadId cuando cambia
-      if (threadId && isBrowser) {
+      if (event.threadId && isBrowser) {
         try {
-          localStorage.setItem(STORAGE_KEY_THREAD, threadId);
+          localStorage.setItem(STORAGE_KEY_THREAD, event.threadId);
           if (isDev) {
-            console.info("[ChatKitPanel] Thread guardado:", threadId);
+            console.info("[ChatKitPanel] Thread guardado:", event.threadId);
           }
         } catch (error) {
           console.error("Error guardando thread:", error);
