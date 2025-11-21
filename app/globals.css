@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "./embed-styles.css";
 
 :root {
   --background: #ffffff;
