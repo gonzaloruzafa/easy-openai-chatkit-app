@@ -1,0 +1,48 @@
+/* Estilos para chat embebido - layout optimizado */
+
+/* Hacer que el chat ocupe toda la altura disponible */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#__next {
+  height: 100%;
+}
+
+/* Optimizar el layout del ChatKit para embedding */
+openai-chatkit {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Asegurar que el composer (input) esté siempre abajo */
+openai-chatkit .composer {
+  margin-top: auto !important;
+  position: sticky !important;
+  bottom: 0 !important;
+  background: white !important;
+  border-top: 1px solid #e5e7eb !important;
+  padding: 12px !important;
+}
+
+/* Mejorar el área de mensajes */
+openai-chatkit .messages {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 16px !important;
+}
+
+/* Estilos responsivos para mobile */
+@media (max-width: 480px) {
+  openai-chatkit .composer {
+    padding: 8px !important;
+  }
+  
+  openai-chatkit .messages {
+    padding: 12px !important;
+  }
+}
