@@ -36,7 +36,6 @@ type ErrorState = {
 
 const isBrowser = typeof window !== "undefined";
 const isDev = process.env.NODE_ENV !== "production";
-const STORAGE_KEY_CLIENT_SECRET = "cedent_chat_client_secret";
 
 const createInitialErrors = (): ErrorState => ({
   script: null,
@@ -149,9 +148,7 @@ export function ChatKitPanel({
 
   const handleResetChat = useCallback(() => {
     processedFacts.current.clear();
-    // Limpiar la sesión guardada al resetear el chat
     if (isBrowser) {
-      localStorage.removeItem(STORAGE_KEY_CLIENT_SECRET);
       setScriptStatus(
         window.customElements?.get("openai-chatkit") ? "ready" : "pending"
       );
@@ -169,15 +166,6 @@ export function ChatKitPanel({
           workflowId: WORKFLOW_ID,
           endpoint: CREATE_SESSION_ENDPOINT,
         });
-      }
-
-      // Intentar recuperar el secret guardado de localStorage
-      if (!currentSecret && isBrowser) {
-        const savedSecret = localStorage.getItem(STORAGE_KEY_CLIENT_SECRET);
-        if (savedSecret) {
-          console.info("[ChatKitPanel] Recuperando sesión guardada");
-          return savedSecret;
-        }
       }
 
       if (!isWorkflowConfigured) {
@@ -248,12 +236,6 @@ export function ChatKitPanel({
         const clientSecret = data?.client_secret as string | undefined;
         if (!clientSecret) {
           throw new Error("Missing client secret in response");
-        }
-
-        // Guardar el clientSecret en localStorage para persistir la sesión
-        if (isBrowser) {
-          localStorage.setItem(STORAGE_KEY_CLIENT_SECRET, clientSecret);
-          console.info("[ChatKitPanel] Sesión guardada en localStorage");
         }
 
         if (isMountedRef.current) {
