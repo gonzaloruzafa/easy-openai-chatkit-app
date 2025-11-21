@@ -36,6 +36,8 @@ type ErrorState = {
 
 const isBrowser = typeof window !== "undefined";
 const isDev = process.env.NODE_ENV !== "production";
+const STORAGE_KEY_THREAD = "cedent_chat_thread_id";
+const STORAGE_KEY_MESSAGES = "cedent_chat_messages";
 
 const createInitialErrors = (): ErrorState => ({
   script: null,
@@ -148,7 +150,10 @@ export function ChatKitPanel({
 
   const handleResetChat = useCallback(() => {
     processedFacts.current.clear();
+    // Limpiar datos persistidos al resetear
     if (isBrowser) {
+      localStorage.removeItem(STORAGE_KEY_THREAD);
+      localStorage.removeItem(STORAGE_KEY_MESSAGES);
       setScriptStatus(
         window.customElements?.get("openai-chatkit") ? "ready" : "pending"
       );
@@ -262,8 +267,19 @@ export function ChatKitPanel({
     [isWorkflowConfigured, setErrorState]
   );
 
+  // Intentar recuperar thread_id guardado para continuar conversación
+  const [savedThreadId] = useState<string | null>(() => {
+    if (!isBrowser) return null;
+    try {
+      return localStorage.getItem(STORAGE_KEY_THREAD);
+    } catch {
+      return null;
+    }
+  });
+
   const chatkit = useChatKit({
     api: { getClientSecret },
+    ...(savedThreadId ? { threadId: savedThreadId } : {}),
     theme: {
       colorScheme: theme,
       ...getThemeConfig(theme),
@@ -327,8 +343,19 @@ export function ChatKitPanel({
     onResponseStart: () => {
       setErrorState({ integration: null, retryable: false });
     },
-    onThreadChange: () => {
+    onThreadChange: (threadId?: string) => {
       processedFacts.current.clear();
+      // Guardar el nuevo threadId cuando cambia
+      if (threadId && isBrowser) {
+        try {
+          localStorage.setItem(STORAGE_KEY_THREAD, threadId);
+          if (isDev) {
+            console.info("[ChatKitPanel] Thread guardado:", threadId);
+          }
+        } catch (error) {
+          console.error("Error guardando thread:", error);
+        }
+      }
     },
     onError: ({ error }: { error: unknown }) => {
       // Note that Chatkit UI handles errors for your users.
